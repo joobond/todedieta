@@ -29,13 +29,17 @@ def pacienteFormulario(request):
     data = {"email": email, "idade":idade, "nivel":nivel, "nome":nome, "peso":peso, "telefone":telefone}
     try:
         db.child("pacientes").push(data)
+        message = "Paciente "+"nome"+" cadastrado com sucesso!"
     except:
         message = "Aconteceu um erro ao cadastrar o paciente"
         return render(request,"cadastrarPaciente.html",{"msg":message})
-    return render(request, "cadastrarPaciente.html", {"e":email})
+    return render(request, "cadastrarPaciente.html", {"msg":message})
 
 def dadosPaciente(request):
-    pacientes = db.child("pacientes").child().get()
+    pacientesod = db.child("pacientes").get()
+    pacientes = []
+    for paciente in pacientesod.each():
+        pacientes.append(paciente.val())
     try:
         return render(request, "pacientes.html", {"pacientes":pacientes})
     except:

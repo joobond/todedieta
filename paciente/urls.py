@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     url(r'^$',views.dadosPaciente),
     url(r'^cadastrar/',views.cadastrarPaciente),
-    url(r'^formulario-paciente/',views.pacienteFormulario),
+    url(r'^formulario-paciente/',views.pacienteFormulario, name="formulario_paciente"),
 ]
