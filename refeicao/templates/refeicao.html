@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}Lista de Refeições - Tô de Dieta!{% endblock titulo_pagina %}
+{% block h1_pagina %}
+Refeições
+{% endblock h1_pagina %}
+{% block content %}
+
+<table class="table w-100">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Descrição</th>
+      </tr>
+    </thead>
+    {% for refeicao in refeicoes%}
+    <tbody>
+        <tr>
+          <td>{{refeicao.descricao}}</td>
+        </tr>
+      </tbody>
+    {% endfor %} 
+  </table>
+{% endblock content %}

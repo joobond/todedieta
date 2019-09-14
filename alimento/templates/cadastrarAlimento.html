@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}Cadastrar Alimento - Tô de Dieta!{% endblock titulo_pagina %}
+{% block h1_pagina %}
+Cadastrar Alimento
+{% endblock h1_pagina %}
+{% block content %}
+<form class="form-signin" action="/alimento/formulario-alimento/" method="post">
+    {% csrf_token %}
+    <label for="descricao" class="font-weight-bold text-uppercase" >Descrição</label>
+    <input type="text" name="descricao" id="descricao" class="form-control mb-3" placeholder="Descrição do alimento" required autofocus>
+    
+    <label for="porcao" class="font-weight-bold text-uppercase" >Porção</label>
+    <input type="number" id="porcao" class="form-control mb-3" name="porcao" required>
+
+    <label for="unidade" class="font-weight-bold text-uppercase">Unidade</label>
+    <select id="unidade" name="unidade" class="form-control mb-3" required>
+        <option selected>Escolha...</option>
+        <option>Pedaço(s)</option>
+        <option>Grama(s)</option>
+        <option>Colher(es)</option>
+      </select>
+
+    <button class="btn btn-lg btn-success btn-block mb-3 text-uppercase font-weight-bold =" type="submit" value="Cadastrar">cadastrar</button>
+</form>
+{% if msg %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endif %}
+{% endblock content %}

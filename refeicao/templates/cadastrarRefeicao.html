@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}Cadastrar Refeição - Tô de Dieta!{% endblock titulo_pagina %}
+{% block h1_pagina %}
+Cadastrar Refeição
+{% endblock h1_pagina %}
+{% block content %}
+<form class="form-signin" action="/refeicao/formulario-refeicao/" method="post">
+    {% csrf_token %}
+    <label for="descricao" class="font-weight-bold text-uppercase" >Descrição</label>
+    <input type="text" name="descricao" id="descricao" class="form-control mb-3" placeholder="Descrição do alimento" required autofocus>
+    
+    <button class="btn btn-lg btn-success btn-block mb-3 text-uppercase font-weight-bold =" type="submit" value="Cadastrar">cadastrar</button>
+</form>
+{% if msg %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endif %}
+{% endblock content %}

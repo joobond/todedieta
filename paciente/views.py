@@ -29,7 +29,7 @@ def pacienteFormulario(request):
     data = {"email": email, "idade":idade, "nivel":nivel, "nome":nome, "peso":peso, "telefone":telefone}
     try:
         db.child("pacientes").push(data)
-        message = "Paciente "+"nome"+" cadastrado com sucesso!"
+        message = "Paciente "+nome+" cadastrado com sucesso!"
     except:
         message = "Aconteceu um erro ao cadastrar o paciente"
         return render(request,"cadastrarPaciente.html",{"msg":message})

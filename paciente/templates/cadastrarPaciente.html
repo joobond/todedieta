@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% block titulo_pagina %}Cadastrar Paciente - Tô de Dieta!{% endblock titulo_pagina %}
 {% block h1_pagina %}
 Cadastrar Paciente
 {% endblock h1_pagina %}
 {% block content %}
 <form class="form-signin" action="/paciente/formulario-paciente/" method="post">
     {% csrf_token %}
-    <label for="email" class="font-weight-bold text-uppercase" >Endereço de e-mail</label>
-    <input type="email" id="email" class="form-control mb-3" name="email" placeholder="Endereço Email" required autofocus>
-
     <label for="nome" class="font-weight-bold text-uppercase" >Nome</label>
     <input type="text" name="nome" id="nome" class="form-control mb-3" placeholder="Nome" required>
+    
+    <label for="email" class="font-weight-bold text-uppercase" >Endereço de e-mail</label>
+    <input type="email" id="email" class="form-control mb-3" name="email" placeholder="Endereço Email" required autofocus>
 
     <label for="idade" class="font-weight-bold text-uppercase" >Idade</label>
     <input type="number" name="idade" id="idade" class="form-control mb-3" required>
@@ -30,5 +31,9 @@ Cadastrar Paciente
 
     <button class="btn btn-lg btn-success btn-block mb-3 text-uppercase font-weight-bold =" type="submit" value="Cadastrar">cadastrar</button>
 </form>
-
+{% if msg %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endif %}
 {% endblock content %}
