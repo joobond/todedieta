@@ -43,18 +43,14 @@ def dadosRefeicao(request):
 
 def dadosAlimento(request):
     descAlimento = str(request.GET.get('descAlimento'))
-    print(descAlimento)
     alimentosod = db.child("alimentos").get()
-    print(alimentosod)
     alimentos = []
     for alimento in alimentosod.each():
-        print(alimento.val())
-        alimentos.append(alimento.val())
-    for a in alimentos:
-        print(a)
+        alimentos.append(alimento.val()['descricao'])
     try:
-        return(alimentos)
+        return render(request, "cadastrarRefeicao.html", {"alimentos":alimentos})
     except:
-        return(None)
+        msg = "Deu erro ao retornar a lista de alimentos"
+        return render (request, "cadastrarRefeicao.html", msg)
     
 

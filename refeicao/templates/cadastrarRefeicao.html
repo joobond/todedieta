@@ -13,18 +13,23 @@ Cadastrar Refeição
     <thead class="thead-dark">
       <tr>
         <th scope="col">Descrição</th>
+        <th scope="col"> Porção </th>
         <th scope="col">Ação</th>
       </tr>
     </thead>
     {% for alimento in alimentos%}
     <tbody>
         <tr>
-          <td>{{alimento.descricao}}</td>
-          <td><button class="bnt btn-sm">Adicionar</button></td>
+          <td id="descricaoAlimentoTabela">{{alimento}}</td>
+          <td><input type="text" name="porcao" id="porcao" class="form-control mb-3"></td>
+          <td><button class="bnt btn-sm btn-info" onclick="adicionarAlimento()">Adicionar</button></td>
         </tr>
       </tbody>
     {% endfor %} 
   </table>
+
+  <h2>Alimentos Selecionados</h2>
+
 <form class="form-signin" action="/refeicao/formulario-refeicao/" method="post">
     {% csrf_token %}
     <label for="descricao" class="font-weight-bold text-uppercase" >Descrição</label>

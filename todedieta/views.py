@@ -28,18 +28,12 @@ def logando(request):
         infoUser = novoUsuario["users"][0]
         uid = infoUser["localId"]
         username = infoUser["email"]
-        usuarioAux = User.objects.get(email)
         # Se o usuário existir no banco de dados local
-        if usuarioAux == None:
-            usuarioLocal = User.objects.create_user(username=username, email=email, password=uid)
-            usuarioLocal.save()
-            autLocal = authenticate(username=name, password=uid)
-            login(request, autLocal)
-            return render(request, "pacientes")
-        else:
-            autLocal = authenticate(username=usuarioAux.username, password=uid)
-            login(request, autLocal)
-            return render(request, "pacientes")
+        usuarioLocal = User.objects.get_or_create(username=username, email=email, password=uid)
+        usuarioLocal.save()
+        autLocal = authenticate(username=name, password=uid)
+        login(request, autLocal)
+        return render(request, "pacientes")
     except:
         message = "Aconteceu algum erro"
         return render(request,"login.html",{"msg":message})
