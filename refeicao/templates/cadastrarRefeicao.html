@@ -4,11 +4,31 @@
 Cadastrar Refeição
 {% endblock h1_pagina %}
 {% block content %}
+<form class="form" action="{% url 'buscaAlimentos' %}" method="get">
+    <label for="descAlimento" class="font-weight-bold text-uppercase" >Digite o alimento</label>
+    <input type="text" name="descAlimento" id="descAlimento" class="form-control mb-3" placeholder="Descrição do alimento" required>
+    <button class="btn btn-primary mb-3" type="submit" value="buscar">Buscar Alimento</button>
+</form>
+<table class="table w-100">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Descrição</th>
+        <th scope="col">Ação</th>
+      </tr>
+    </thead>
+    {% for alimento in alimentos%}
+    <tbody>
+        <tr>
+          <td>{{alimento.descricao}}</td>
+          <td><button class="bnt btn-sm">Adicionar</button></td>
+        </tr>
+      </tbody>
+    {% endfor %} 
+  </table>
 <form class="form-signin" action="/refeicao/formulario-refeicao/" method="post">
     {% csrf_token %}
     <label for="descricao" class="font-weight-bold text-uppercase" >Descrição</label>
-    <input type="text" name="descricao" id="descricao" class="form-control mb-3" placeholder="Descrição do alimento" required autofocus>
-    
+    <input type="text" name="descricao" id="descricao" class="form-control mb-3" placeholder="Descrição da Refeição" required autofocus>
     <button class="btn btn-lg btn-success btn-block mb-3 text-uppercase font-weight-bold =" type="submit" value="Cadastrar">cadastrar</button>
 </form>
 {% if msg %}

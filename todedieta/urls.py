@@ -23,5 +23,5 @@ urlpatterns = [
     path('refeicao/', include('refeicao.urls')),
     path('admin/', admin.site.urls),
     path('logando/',views.logando, name='logando'),
-    path('login/',views.login),
+    path('login/',views.viewLogin),
 ]

@@ -40,5 +40,21 @@ def dadosRefeicao(request):
     except:
         message = "Aconteceu um erro ao retornar os refeicoes"
         return render(request,"refeicao.html",{"msg":message})
+
+def dadosAlimento(request):
+    descAlimento = str(request.GET.get('descAlimento'))
+    print(descAlimento)
+    alimentosod = db.child("alimentos").get()
+    print(alimentosod)
+    alimentos = []
+    for alimento in alimentosod.each():
+        print(alimento.val())
+        alimentos.append(alimento.val())
+    for a in alimentos:
+        print(a)
+    try:
+        return(alimentos)
+    except:
+        return(None)
     
 

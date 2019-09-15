@@ -16,7 +16,7 @@ firebase = pyrebase.initialize_app(config)
 
 auth = firebase.auth()
 
-def login(request):
+def viewLogin(request):
     return render(request, "login.html")
 
 def logando(request):
@@ -30,18 +30,17 @@ def logando(request):
         username = infoUser["email"]
         usuarioAux = User.objects.get(email)
         # Se o usuário existir no banco de dados local
-        if usuarioAux:
-            autLocal = authenticate(username=usuarioAux.username, password=uid)
-            login(request, autLocal)
-            return render(request, "pacientes")
-        else:
+        if usuarioAux == None:
             usuarioLocal = User.objects.create_user(username=username, email=email, password=uid)
             usuarioLocal.save()
             autLocal = authenticate(username=name, password=uid)
             login(request, autLocal)
             return render(request, "pacientes")
+        else:
+            autLocal = authenticate(username=usuarioAux.username, password=uid)
+            login(request, autLocal)
+            return render(request, "pacientes")
     except:
         message = "Aconteceu algum erro"
         return render(request,"login.html",{"msg":message})
-    print(user)
     return render(request, "paciente",{"user":usuarioAux})
