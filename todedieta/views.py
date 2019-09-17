@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import pyrebase
@@ -19,6 +19,10 @@ auth = firebase.auth()
 def viewLogin(request):
     return render(request, "login.html")
 
+def viewLogout(request):
+    logout(request)
+    return redirect("login")
+
 def logando(request):
     email=request.POST.get("email")
     password = request.POST.get("password")
@@ -29,12 +33,20 @@ def logando(request):
         uid = infoUser["localId"]
         username = infoUser["email"]
         # Se o usuário existir no banco de dados local
-        usuarioLocal = User.objects.get_or_create(username=username, email=email, password=uid)
-        usuarioLocal.save()
-        autLocal = authenticate(username=name, password=uid)
+        usuarios = User.objects.all()
+        usuarioLocal = []
+        usuarioExiste = False
+        for u in usuarios:
+            if u.email == username:
+                usuarioLocal = u
+                usuarioExiste = True
+        if not usuarioExiste:
+            usuarioLocal = User.objects.create_user(username=username, email=email, password=uid)
+            usuarioLocal.save()
+        
+        autLocal = authenticate(username=username, password=uid)
         login(request, autLocal)
-        return render(request, "pacientes")
+        return redirect("pacientes")
     except:
         message = "Aconteceu algum erro"
         return render(request,"login.html",{"msg":message})
-    return render(request, "paciente",{"user":usuarioAux})

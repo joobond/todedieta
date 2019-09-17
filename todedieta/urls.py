@@ -23,5 +23,6 @@ urlpatterns = [
     path('refeicao/', include('refeicao.urls')),
     path('admin/', admin.site.urls),
     path('logando/',views.logando, name='logando'),
-    path('login/',views.viewLogin),
+    path('login/',views.viewLogin, name='login'),
+    path('logout/',views.viewLogout, name='logout')
 ]
