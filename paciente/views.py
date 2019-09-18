@@ -45,5 +45,6 @@ def dadosPaciente(request):
     except:
         message = "Aconteceu um erro ao retornar os paciente"
         return render(request,"pacientes.html",{"msg":message})
+
     
 

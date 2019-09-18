@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from pyrebase import pyrebase
+from django.http import JsonResponse
 
 config = {
     'apiKey': "AIzaSyDg-AD8p3MTB3GhmLqupSO6TKrNqXun8TI",
@@ -41,16 +42,18 @@ def dadosRefeicao(request):
         message = "Aconteceu um erro ao retornar os refeicoes"
         return render(request,"refeicao.html",{"msg":message})
 
-def dadosAlimento(request):
-    descAlimento = str(request.GET.get('descAlimento'))
-    alimentosod = db.child("alimentos").get()
-    alimentos = []
-    for alimento in alimentosod.each():
-        alimentos.append(alimento.val()['descricao'])
-    try:
-        return render(request, "cadastrarRefeicao.html", {"alimentos":alimentos})
-    except:
-        msg = "Deu erro ao retornar a lista de alimentos"
-        return render (request, "cadastrarRefeicao.html", msg)
+def autocomplete(request):
+    if request.is_ajax():
+        descAlimento = str(request.GET.get('descAlimento'))
+        alimentosod = db.child("alimentos").get()
+        alimentos = []
+        for alimento in alimentosod.each():
+            if alimento.val()['descricao'] == descAlimento:
+                alimentos.append(alimento.val())
+        try:
+            return JsonResponde(alimentos)
+        except:
+            msg = "Deu erro ao retornar a lista de alimentos"
+            return render (request, "cadastrarRefeicao.html", msg)
     
 
