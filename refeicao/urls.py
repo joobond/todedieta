@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^cadastrar/',views.cadastrarRefeicao, name="cadastrar_refeicao"),
     url(r'^formulario-refeicao/',views.refeicaoFormulario, name="formulario_refeicao"),
     url(r'^busca-alimento/$', views.autocomplete, name="buscaAlimentos"),
+    url(r'^branco/$', views.listaBranca, name="branco"),
 ]

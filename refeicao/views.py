@@ -55,5 +55,16 @@ def autocomplete(request):
         except:
             msg = "Deu erro ao retornar a lista de alimentos"
             return render (request, "cadastrarRefeicao.html", msg)
-    
+
+def listaBranca(request):
+    alimentosod = db.child("alimentos").order_by_child("descricao").get()
+    print(alimentosod)
+    alimentos = []
+    for alimento in alimentosod.each():
+        alimentos.append(alimento.val())
+    try:
+        return render(request, "branco.html", {"alimentos":alimentos})
+    except:
+        message = "Aconteceu um erro ao retornar os alimentos"
+        return render(request,"branco.html",{"msg":message})
 
